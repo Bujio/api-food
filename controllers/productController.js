@@ -1,9 +1,8 @@
-const Product = require("../models/Product.model");
-require("../db");
-
+const Product = require('../models/Product.model');
+require('../db');
 
 module.exports.home = (req, res, next) => {
-  return res.send("hola");
+  return res.send('hola');
 };
 
 module.exports.createList = async (req, res, next) => {
@@ -29,6 +28,10 @@ module.exports.getProduct = async (req, res, next) => {
     const { id } = req.params;
 
     const product = await Product.findById(id);
+    if (!product.image_url) {
+      product.image_url =
+        'https://upload.wikimedia.org/wikipedia/commons/9/95/Food_Bank_-_The_Noun_Project.svg';
+    }
     return res.status(200).json(product);
   } catch (error) {
     next(error);
@@ -51,7 +54,7 @@ module.exports.deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
-    res.status(200).json({ message: "product successfully deleted!!" });
+    res.status(200).json({ message: 'product successfully deleted!!' });
   } catch (error) {
     next(error);
   }

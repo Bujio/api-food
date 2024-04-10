@@ -29,6 +29,11 @@ const UserSchema = new Schema({
     default:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png',
   },
+  create: {
+    type: Date,
+    default: Date.now,
+    immutable: true,
+  },
 });
 
 module.exports = model('User', UserSchema);
